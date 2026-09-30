@@ -1,0 +1,707 @@
+<!DOCTYPE html><html lang="ro"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Orar 312AA</title>
+<script>document.documentElement.className="js"</script>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;800;900&display=swap" rel="stylesheet">
+
+<!-- Apple / iOS Specific PWA Meta Tags -->
+<meta name="theme-color" content="#15131c">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Orar 312AA">
+
+<link rel="apple-touch-icon" href="icon-180.png">
+
+<link rel="manifest" href="manifest.webmanifest">
+
+<style>
+:root {
+  box-sizing: border-box;
+  --bg: #15131c;
+  --fg: #f0edf7;
+  --card: #1f1c2b;
+  --mut: #9a94ad;
+  --line: #2d2940;
+  --soft: #262336;
+  --acc: #a496ff;
+  --curs: #6f93d8;
+  --lab: #e3a24a;
+  --sem: #5fb37c;
+  --opt: #d878ad;
+  --shadow: 0 2px 10px rgba(0,0,0,.3);
+  --now-line: #ef4444;
+  --alert: #f97316;
+}
+
+html {
+  scroll-padding-top: env(safe-area-inset-top, 0px);
+  scroll-behavior: smooth;
+  background-color: var(--bg);
+}
+
+* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+body {
+  margin: 0;
+  padding: calc(env(safe-area-inset-top, 20px) + 10px) 14px calc(env(safe-area-inset-bottom, 20px) + 30px);
+  background: var(--bg);
+  color: var(--fg);
+  font-family: 'Nunito', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  max-width: 540px;
+  margin-inline: auto;
+}
+
+h1 { margin: 0; font-size: 1.5rem; font-weight: 800; }
+.sub { color: var(--mut); font-size: .85rem; margin: 2px 0 10px; }
+
+.sticky-bar {
+  position: sticky;
+  top: calc(env(safe-area-inset-top, 0px) + 6px);
+  z-index: 20;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 8px 12px;
+  margin-bottom: 12px;
+  box-shadow: var(--shadow);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+.sticky-info { display: flex; flex-direction: column; gap: 2px; }
+.sticky-title { font-size: 0.95rem; font-weight: 800; color: var(--fg); }
+.sticky-sub { font-size: 0.76rem; font-weight: 700; color: var(--acc); }
+.sticky-sub.warning { color: var(--alert); }
+
+.sticky-toggle {
+  display: flex;
+  background: var(--soft);
+  padding: 3px;
+  border-radius: 999px;
+  gap: 2px;
+}
+.sticky-toggle button {
+  border: 0;
+  background: transparent;
+  color: var(--mut);
+  font: 800 0.78rem 'Nunito', sans-serif;
+  padding: 6px 12px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.sticky-toggle button.on {
+  background: var(--acc);
+  color: #15131c;
+  box-shadow: 0 2px 6px rgba(164, 150, 255, 0.3);
+}
+
+.pwa-banner {
+  display: none; background: var(--card); border: 1.5px solid var(--acc); padding: 10px 12px;
+  border-radius: 14px; margin-bottom: 10px; box-shadow: var(--shadow); align-items: center; justify-content: space-between;
+}
+.pwa-banner div { font-weight: 700; font-size: 0.8rem; }
+.pwa-banner button { background: var(--acc); color: #15131c; border: 0; padding: 6px 12px; border-radius: 8px; font-weight: 800; cursor: pointer; }
+
+.day { background: var(--card); border-radius: 18px; margin-bottom: 10px; padding: 12px; box-shadow: var(--shadow); position: relative; scroll-margin-top: 110px; }
+.today { outline: 2px solid var(--acc); }
+.dh { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
+.dh h2 { margin: 0; font-size: 1rem; font-weight: 800; }
+.dh span { font-size: .75rem; font-weight: 700; color: var(--mut); }
+.today .dh span { color: var(--acc); }
+
+.it-container { position: relative; }
+.it { display: flex; align-items: center; gap: 10px; padding: 8px 10px; border-radius: 12px; background: var(--soft); border-left: 4px solid var(--c); margin-bottom: 5px; position: relative; }
+.curs { --c: var(--curs); } .lab { --c: var(--lab); } .sem { --c: var(--sem); } .opt { --c: var(--opt); }
+
+.it.is-live { outline: 2px solid var(--acc); background: var(--card); box-shadow: 0 0 10px rgba(164, 150, 255, 0.3); }
+.live-badge { background: var(--acc); color: #15131c; font-size: 0.6rem; font-weight: 800; padding: 1px 4px; border-radius: 4px; margin-left: 4px; }
+
+.map-btn { margin-left: auto; flex-shrink: 0; border: 1.5px solid var(--acc); background: transparent; color: var(--acc); font: 800 .68rem 'Nunito', sans-serif; width: 34px; height: 34px; padding: 0; font-size: 1rem; line-height: 1; display: flex; align-items: center; justify-content: center; border-radius: 50%; cursor: pointer; -webkit-appearance: none; }
+
+.map-modal { position: fixed; inset: 0; z-index: 100; background: rgba(0,0,0,.6); display: none; align-items: flex-end; justify-content: center; -webkit-backdrop-filter: blur(4px); backdrop-filter: blur(4px); }
+.map-modal.on { display: flex; }
+.map-sheet { background: var(--card); width: 100%; max-width: 540px; height: 82vh; height: 82dvh; border-radius: 20px 20px 0 0; display: flex; flex-direction: column; overflow: hidden; padding-bottom: env(safe-area-inset-bottom, 0px); }
+.map-head { display: flex; align-items: center; gap: 10px; padding: 12px 14px; border-bottom: 1px solid var(--line); }
+.map-title { flex: 1; min-width: 0; font-weight: 800; font-size: .9rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.map-ext { color: var(--mut); font-weight: 700; font-size: .72rem; text-decoration: none; }
+.map-close { border: 0; background: var(--soft); color: var(--fg); width: 30px; height: 30px; border-radius: 50%; font-size: 1rem; cursor: pointer; line-height: 1; -webkit-appearance: none; }
+.map-msg { padding: 6px 14px; font-size: .78rem; font-weight: 700; color: var(--mut); display: none; }
+.map-msg.on { display: block; }
+.map-msg.warn { color: var(--alert); }
+
+/* Harta Dark Mode */
+.map-canvas { flex: 1; width: 100%; position: relative; z-index: 0; background: #121018; -webkit-transform: translateZ(0); }
+.map-canvas .leaflet-tile-container img {
+  filter: brightness(0.65) invert(1) contrast(3.5) hue-rotate(200deg) saturate(0.4);
+  -webkit-filter: brightness(0.65) invert(1) contrast(3.5) hue-rotate(200deg) saturate(0.4);
+}
+.map-canvas .leaflet-control-attribution { font-size: 9px; background: rgba(21,19,28,.8); color: var(--mut); border-top-left-radius: 6px; }
+.map-canvas .leaflet-control-attribution a { color: var(--acc); }
+.map-canvas .leaflet-bar { border: none !important; box-shadow: 0 4px 12px rgba(0,0,0,0.5) !important; }
+.map-canvas .leaflet-bar a { background-color: var(--card) !important; color: var(--fg) !important; border-bottom: 1px solid var(--line) !important; }
+
+/* Punctul albastru & conul de direcție al utilizatorului */
+.me { position: relative; width: 32px; height: 32px; }
+.me-dot { position: absolute; inset: 8px; background: #3b82f6; border: 2.5px solid #fff; border-radius: 50%; box-shadow: 0 0 12px #3b82f6; z-index: 2; }
+.me-cone {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 100px;
+  height: 100px;
+  margin: -50px 0 0 -50px;
+  border-radius: 50%;
+  opacity: 0;
+  transition: transform .15s linear, opacity .2s;
+  background: conic-gradient(from -35deg, rgba(96,165,250,.85) 0deg, rgba(96,165,250,0) 70deg, transparent 70deg);
+  -webkit-mask: radial-gradient(circle, transparent 15%, #000 16%, transparent 75%);
+  mask: radial-gradient(circle, transparent 15%, #000 16%, transparent 75%);
+  animation: pulseCone 2s infinite ease-in-out;
+}
+
+@keyframes pulseCone {
+  0%, 100% { filter: drop-shadow(0 0 2px rgba(96,165,250,0.5)); }
+  50% { filter: drop-shadow(0 0 8px rgba(96,165,250,0.9)); }
+}
+
+/* Highlight Pin Destinație */
+.dest-pin-container { position: relative; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; }
+.dest-pulse {
+  position: absolute;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(164, 150, 255, 0.4);
+  box-shadow: 0 0 15px rgba(164, 150, 255, 0.8);
+  animation: pulseDest 1.8s infinite ease-out;
+}
+.dest-icon {
+  position: relative;
+  z-index: 2;
+  background: #a496ff;
+  color: #15131c;
+  font-size: 1.2rem;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 10px #a496ff, 0 0 20px #a496ff;
+  border: 2px solid #fff;
+}
+
+@keyframes pulseDest {
+  0% { transform: scale(0.6); opacity: 1; }
+  100% { transform: scale(1.6); opacity: 0; }
+}
+
+.map-btn svg { display: block; }
+.map-btn:active { background: var(--acc); color: #15131c; }
+.em { font-size: 1.3rem; line-height: 1; }
+.t { font-weight: 800; font-size: .78rem; color: var(--mut); }
+.n { font-weight: 800; font-size: .92rem; }
+.n small { display: block; font-weight: 600; color: var(--mut); font-size: .78rem; }
+.br { text-align: center; color: var(--mut); font-size: .75rem; font-weight: 700; padding: 4px 0 8px; }
+.free { padding: 8px; text-align: center; color: var(--mut); font-weight: 700; font-size: .85rem; }
+.note { font-size: .78rem; color: var(--mut); line-height: 1.5; padding-left: 16px; margin: 12px 0 0; }
+
+.time-arrow-line {
+  position: absolute;
+  left: -8px;
+  right: -8px;
+  height: 2px;
+  background: var(--now-line);
+  z-index: 10;
+  pointer-events: none;
+  transform: translateY(-50%);
+}
+.time-arrow-line::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: -3px;
+  width: 0;
+  height: 0;
+  border-top: 4px solid transparent;
+  border-bottom: 4px solid transparent;
+  border-left: 6px solid var(--now-line);
+}
+.time-arrow-line::after {
+  content: attr(data-time);
+  position: absolute;
+  right: 0;
+  top: -8px;
+  background: var(--now-line);
+  color: #fff;
+  font-size: 0.6rem;
+  font-weight: 800;
+  padding: 1px 5px;
+  border-radius: 8px;
+}
+
+/* ===== Fallback fără JavaScript ===== */
+.nojs-radio{position:absolute;opacity:0;pointer-events:none}
+.sticky-toggle label{color:var(--mut);font:800 0.78rem 'Nunito',sans-serif;padding:6px 12px;border-radius:999px;cursor:pointer}
+html.js .sticky-toggle label, html.js .nojs-radio{display:none}
+html:not(.js) .sticky-toggle button, html:not(.js) .map-btn, html:not(.js) .pwa-banner{display:none}
+#r1:checked ~ .sticky-bar label[for=r1], #r2:checked ~ .sticky-bar label[for=r2]{background:var(--acc);color:#15131c;box-shadow:0 2px 6px rgba(164,150,255,.3)}
+#r1:checked ~ #out .wk2, #r2:checked ~ #out .wk1{display:none}
+</style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+</head><body>
+<input type="radio" name="wk" id="r1" class="nojs-radio" checked>
+<input type="radio" name="wk" id="r2" class="nojs-radio">
+
+<div class="pwa-banner" id="pwaBanner">
+  <div id="pwaText">📲 Instalează aplicația pe ecran!</div>
+  <button id="pwaBtn">Instalează</button>
+</div>
+
+<h1>Orar 312AA 🎓</h1>
+<div class="sub">ACS Poli București · 2026–2027</div>
+
+<div class="sticky-bar">
+  <div class="sticky-info">
+    <span class="sticky-title" id="stickyWeekText">Orar 312AA</span>
+    <span class="sticky-sub" id="stickyCountdown">Alege săptămâna</span>
+  </div>
+  <div class="sticky-toggle">
+    <label for="r1">Impară</label><button id="b1">Impară</button>
+    <label for="r2">Pară</label><button id="b2">Pară</button>
+  </div>
+</div>
+
+<div id="out"><div class="wk1"><div class="day"><div class="dh"><h2>Luni</h2><span>10–16</span></div><div class="it-container"><div class="it lab" data-start="10" data-end="12"><span class="em">💻</span><div><div class="t">10–12</div><div class="n">PCLP laborator<small>ED310a (a) · ED310b (b) (Et. 3)</small></div></div><button type="button" class="map-btn" data-room="ED310a (a) · ED310b (b) (Et. 3)" aria-label="Find on map" title="Find on map"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.1 5.55a2 2 0 0 0 1.79 0l3.66-1.83A1 1 0 0 1 21 4.62v12.76a1 1 0 0 1-.55.9l-4.55 2.27a2 2 0 0 1-1.79 0l-4.21-2.1a2 2 0 0 0-1.79 0l-3.66 1.83A1 1 0 0 1 3 19.38V6.62a1 1 0 0 1 .55-.9l4.55-2.27a2 2 0 0 1 1.79 0z"></path><path d="M15 5.76v15"></path><path d="M9 3.24v15"></path></svg></button></div><div class="it sem" data-start="12" data-end="14"><span class="em">🏃</span><div><div class="t">12–14</div><div class="n">Educație fizică<small>Sala de sport</small></div></div><button type="button" class="map-btn" data-room="Sala de sport" aria-label="Find on map" title="Find on map"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.1 5.55a2 2 0 0 0 1.79 0l3.66-1.83A1 1 0 0 1 21 4.62v12.76a1 1 0 0 1-.55.9l-4.55 2.27a2 2 0 0 1-1.79 0l-4.21-2.1a2 2 0 0 0-1.79 0l-3.66 1.83A1 1 0 0 1 3 19.38V6.62a1 1 0 0 1 .55-.9l4.55-2.27a2 2 0 0 1 1.79 0z"></path><path d="M15 5.76v15"></path><path d="M9 3.24v15"></path></svg></button></div><div class="it sem" data-start="14" data-end="16"><span class="em">📐</span><div><div class="t">14–16</div><div class="n">ALGAED seminar<small>EG 303a (Et. 3)</small></div></div><button type="button" class="map-btn" data-room="EG 303a (Et. 3)" aria-label="Find on map" title="Find on map"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.1 5.55a2 2 0 0 0 1.79 0l3.66-1.83A1 1 0 0 1 21 4.62v12.76a1 1 0 0 1-.55.9l-4.55 2.27a2 2 0 0 1-1.79 0l-4.21-2.1a2 2 0 0 0-1.79 0l-3.66 1.83A1 1 0 0 1 3 19.38V6.62a1 1 0 0 1 .55-.9l4.55-2.27a2 2 0 0 1 1.79 0z"></path><path d="M15 5.76v15"></path><path d="M9 3.24v15"></path></svg></button></div></div></div><div class="day"><div class="dh"><h2>Marți</h2><span>8–20</span></div><div class="it-container"><div class="it lab" data-start="8" data-end="10"><span class="em">⚙️️</span><div><div class="t">8–10</div><div class="n">Mecanică laborator<small>BN033 (a) · BN034 (b)</small></div></div><button type="button" class="map-btn" data-room="BN033 (a) · BN034 (b)" aria-label="Find on map" title="Find on map"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.1 5.55a2 2 0 0 0 1.79 0l3.66-1.83A1 1 0 0 1 21 4.62v12.76a1 1 0 0 1-.55.9l-4.55 2.27a2 2 0 0 1-1.79 0l-4.21-2.1a2 2 0 0 0-1.79 0l-3.66 1.83A1 1 0 0 1 3 19.38V6.62a1 1 0 0 1 .55-.9l4.55-2.27a2 2 0 0 1 1.79 0z"></path><path d="M15 5.76v15"></path><path d="M9 3.24v15"></path></svg></button></div><div class="it sem" data-start="10" data-end="12"><span class="em">➗</span><div><div class="t">10–12</div><div class="n">AMat seminar<small>AN 213 (Et. 2)</small></div></div><button type="button" class="map-btn" data-room="AN 213 (Et. 2)" aria-label="Find on map" title="Find on map"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.1 5.55a2 2 0 0 0 1.79 0l3.66-1.83A1 1 0 0 1 21 4.62v12.76a1 1 0 0 1-.55.9l-4.55 2.27a2 2 0 0 1-1.79 0l-4.21-2.1a2 2 0 0 0-1.79 0l-3.66 1.83A1 1 0 0 1 3 19.38V6.62a1 1 0 0 1 .55-.9l4.55-2.27a2 2 0 0 1 1.79 0z"></path><path d="M15 5.76v15"></path><path d="M9 3.24v15"></path></svg></button></div><div class="br" data-start="12" data-end="14">☕ pauză 2h</div><div class="it opt" data-start="14" data-end="16"><span class="em">💡</span><div><div class="t">14–16</div><div class="n">Cultură antreprenorială seminar<small>PR 103b (Et. 1)</small></div></div><button type="button" class="map-btn" data-room="PR 103b (Et. 1)" aria-label="Find on map" title="Find on map"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.1 5.55a2 2 0 0 0 1.79 0l3.66-1.83A1 1 0 0 1 21 4.62v12.76a1 1 0 0 1-.55.9l-4.55 2.27a2 2 0 0 1-1.79 0l-4.21-2.1a2 2 0 0 0-1.79 0l-3.66 1.83A1 1 0 0 1 3 19.38V6.62a1 1 0 0 1 .55-.9l4.55-2.27a2 2 0 0 1 1.79 0z"></path><path d="M15 5.76v15"></path><path d="M9 3.24v15"></path></svg></button></div><div class="br" data-start="16" data-end="18">☕ pauză 2h</div><div class="it opt" data-start="18" data-end="20"><span class="em">🤖</span><div><div class="t">18–20</div><div class="n">IA1 curs<small>EC 101 (Et. 1)</small></div></div><button type="button" class="map-btn" data-room="EC 101 (Et. 1)" aria-label="Find on map" title="Find on map"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.1 5.55a2 2 0 0 0 1.79 0l3.66-1.83A1 1 0 0 1 21 4.62v12.76a1 1 0 0 1-.55.9l-4.55 2.27a2 2 0 0 1-1.79 0l-4.21-2.1a2 2 0 0 0-1.79 0l-3.66 1.83A1 1 0 0 1 3 19.38V6.62a1 1 0 0 1 .55-.9l4.55-2.27a2 2 0 0 1 1.79 0z"></path><path d="M15 5.76v15"></path><path d="M9 3.24v15"></path></svg></button></div></div></div><div class="day"><div class="dh"><h2>Miercuri</h2><span>10–16</span></div><div class="it-container"><div class="it curs" data-start="10" data-end="13"><span class="em">📐</span><div><div class="t">10–13</div><div class="n">ALGAED curs<small>AN 030</small></div></div><button type="button" class="map-btn" data-room="AN 030" aria-label="Find on map" title="Find on map"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.1 5.55a2 2 0 0 0 1.79 0l3.66-1.83A1 1 0 0 1 21 4.62v12.76a1 1 0 0 1-.55.9l-4.55 2.27a2 2 0 0 1-1.79 0l-4.21-2.1a2 2 0 0 0-1.79 0l-3.66 1.83A1 1 0 0 1 3 19.38V6.62a1 1 0 0 1 .55-.9l4.55-2.27a2 2 0 0 1 1.79 0z"></path><path d="M15 5.76v15"></path><path d="M9 3.24v15"></path></svg></button></div><div class="br" data-start="13" data-end="14">☕ pauză 1h</div><div class="it curs" data-start="14" data-end="16"><span class="em">🐧</span><div><div class="t">14–16</div><div class="n">ISO curs<small>CantCTI</small></div></div><button type="button" class="map-btn" data-room="CantCTI" aria-label="Find on map" title="Find on map"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.1 5.55a2 2 0 0 0 1.79 0l3.66-1.83A1 1 0 0 1 21 4.62v12.76a1 1 0 0 1-.55.9l-4.55 2.27a2 2 0 0 1-1.79 0l-4.21-2.1a2 2 0 0 0-1.79 0l-3.66 1.83A1 1 0 0 1 3 19.38V6.62a1 1 0 0 1 .55-.9l4.55-2.27a2 2 0 0 1 1.79 0z"></path><path d="M15 5.76v15"></path><path d="M9 3.24v15"></path></svg></button></div></div></div><div class="day"><div class="dh"><h2>Joi</h2><span>12–14</span></div><div class="it-container"><div class="it curs" data-start="12" data-end="14"><span class="em">⚙</span><div><div class="t">12–14</div><div class="n">Mecanică curs<small>AN 030</small></div></div><button type="button" class="map-btn" data-room="AN 030" aria-label="Find on map" title="Find on map"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.1 5.55a2 2 0 0 0 1.79 0l3.66-1.83A1 1 0 0 1 21 4.62v12.76a1 1 0 0 1-.55.9l-4.55 2.27a2 2 0 0 1-1.79 0l-4.21-2.1a2 2 0 0 0-1.79 0l-3.66 1.83A1 1 0 0 1 3 19.38V6.62a1 1 0 0 1 .55-.9l4.55-2.27a2 2 0 0 1 1.79 0z"></path><path d="M15 5.76v15"></path><path d="M9 3.24v15"></path></svg></button></div></div></div><div class="day"><div class="dh"><h2>Vineri</h2><span>8–14</span></div><div class="it-container"><div class="it curs" data-start="8" data-end="11"><span class="em">➗</span><div><div class="t">8–11</div><div class="n">AMat curs<small>AN 030</small></div></div><button type="button" class="map-btn" data-room="AN 030" aria-label="Find on map" title="Find on map"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.1 5.55a2 2 0 0 0 1.79 0l3.66-1.83A1 1 0 0 1 21 4.62v12.76a1 1 0 0 1-.55.9l-4.55 2.27a2 2 0 0 1-1.79 0l-4.21-2.1a2 2 0 0 0-1.79 0l-3.66 1.83A1 1 0 0 1 3 19.38V6.62a1 1 0 0 1 .55-.9l4.55-2.27a2 2 0 0 1 1.79 0z"></path><path d="M15 5.76v15"></path><path d="M9 3.24v15"></path></svg></button></div><div class="it curs" data-start="11" data-end="14"><span class="em">💻</span><div><div class="t">11–14</div><div class="n">PCLP curs<small>AN 030</small></div></div><button type="button" class="map-btn" data-room="AN 030" aria-label="Find on map" title="Find on map"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.1 5.55a2 2 0 0 0 1.79 0l3.66-1.83A1 1 0 0 1 21 4.62v12.76a1 1 0 0 1-.55.9l-4.55 2.27a2 2 0 0 1-1.79 0l-4.21-2.1a2 2 0 0 0-1.79 0l-3.66 1.83A1 1 0 0 1 3 19.38V6.62a1 1 0 0 1 .55-.9l4.55-2.27a2 2 0 0 1 1.79 0z"></path><path d="M15 5.76v15"></path><path d="M9 3.24v15"></path></svg></button></div></div></div></div><div class="wk2"><div class="day"><div class="dh"><h2>Luni</h2><span>10–16</span></div><div class="it-container"><div class="it lab" data-start="10" data-end="12"><span class="em">💻</span><div><div class="t">10–12</div><div class="n">PCLP laborator<small>ED310a (a) · ED310b (b) (Et. 3)</small></div></div><button type="button" class="map-btn" data-room="ED310a (a) · ED310b (b) (Et. 3)" aria-label="Find on map" title="Find on map"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.1 5.55a2 2 0 0 0 1.79 0l3.66-1.83A1 1 0 0 1 21 4.62v12.76a1 1 0 0 1-.55.9l-4.55 2.27a2 2 0 0 1-1.79 0l-4.21-2.1a2 2 0 0 0-1.79 0l-3.66 1.83A1 1 0 0 1 3 19.38V6.62a1 1 0 0 1 .55-.9l4.55-2.27a2 2 0 0 1 1.79 0z"></path><path d="M15 5.76v15"></path><path d="M9 3.24v15"></path></svg></button></div><div class="it sem" data-start="12" data-end="14"><span class="em">🇬🇧</span><div><div class="t">12–14</div><div class="n">Engleză seminar<small>PR 103b (Et. 1)</small></div></div><button type="button" class="map-btn" data-room="PR 103b (Et. 1)" aria-label="Find on map" title="Find on map"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.1 5.55a2 2 0 0 0 1.79 0l3.66-1.83A1 1 0 0 1 21 4.62v12.76a1 1 0 0 1-.55.9l-4.55 2.27a2 2 0 0 1-1.79 0l-4.21-2.1a2 2 0 0 0-1.79 0l-3.66 1.83A1 1 0 0 1 3 19.38V6.62a1 1 0 0 1 .55-.9l4.55-2.27a2 2 0 0 1 1.79 0z"></path><path d="M15 5.76v15"></path><path d="M9 3.24v15"></path></svg></button></div><div class="it sem" data-start="14" data-end="16"><span class="em">📐</span><div><div class="t">14–16</div><div class="n">ALGAED seminar<small>EG 303a (Et. 3)</small></div></div><button type="button" class="map-btn" data-room="EG 303a (Et. 3)" aria-label="Find on map" title="Find on map"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.1 5.55a2 2 0 0 0 1.79 0l3.66-1.83A1 1 0 0 1 21 4.62v12.76a1 1 0 0 1-.55.9l-4.55 2.27a2 2 0 0 1-1.79 0l-4.21-2.1a2 2 0 0 0-1.79 0l-3.66 1.83A1 1 0 0 1 3 19.38V6.62a1 1 0 0 1 .55-.9l4.55-2.27a2 2 0 0 1 1.79 0z"></path><path d="M15 5.76v15"></path><path d="M9 3.24v15"></path></svg></button></div></div></div><div class="day"><div class="dh"><h2>Marți</h2><span>8–20</span></div><div class="it-container"><div class="it lab" data-start="8" data-end="10"><span class="em">⚙️️</span><div><div class="t">8–10</div><div class="n">Mecanică laborator<small>BN033 (a) · BN034 (b)</small></div></div><button type="button" class="map-btn" data-room="BN033 (a) · BN034 (b)" aria-label="Find on map" title="Find on map"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.1 5.55a2 2 0 0 0 1.79 0l3.66-1.83A1 1 0 0 1 21 4.62v12.76a1 1 0 0 1-.55.9l-4.55 2.27a2 2 0 0 1-1.79 0l-4.21-2.1a2 2 0 0 0-1.79 0l-3.66 1.83A1 1 0 0 1 3 19.38V6.62a1 1 0 0 1 .55-.9l4.55-2.27a2 2 0 0 1 1.79 0z"></path><path d="M15 5.76v15"></path><path d="M9 3.24v15"></path></svg></button></div><div class="it sem" data-start="10" data-end="12"><span class="em">➗</span><div><div class="t">10–12</div><div class="n">AMat seminar<small>AN 213 (Et. 2)</small></div></div><button type="button" class="map-btn" data-room="AN 213 (Et. 2)" aria-label="Find on map" title="Find on map"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.1 5.55a2 2 0 0 0 1.79 0l3.66-1.83A1 1 0 0 1 21 4.62v12.76a1 1 0 0 1-.55.9l-4.55 2.27a2 2 0 0 1-1.79 0l-4.21-2.1a2 2 0 0 0-1.79 0l-3.66 1.83A1 1 0 0 1 3 19.38V6.62a1 1 0 0 1 .55-.9l4.55-2.27a2 2 0 0 1 1.79 0z"></path><path d="M15 5.76v15"></path><path d="M9 3.24v15"></path></svg></button></div><div class="br" data-start="12" data-end="18">☕ pauză 6h</div><div class="it opt" data-start="18" data-end="20"><span class="em">🤖</span><div><div class="t">18–20</div><div class="n">IA1 curs<small>EC 101 (Et. 1)</small></div></div><button type="button" class="map-btn" data-room="EC 101 (Et. 1)" aria-label="Find on map" title="Find on map"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.1 5.55a2 2 0 0 0 1.79 0l3.66-1.83A1 1 0 0 1 21 4.62v12.76a1 1 0 0 1-.55.9l-4.55 2.27a2 2 0 0 1-1.79 0l-4.21-2.1a2 2 0 0 0-1.79 0l-3.66 1.83A1 1 0 0 1 3 19.38V6.62a1 1 0 0 1 .55-.9l4.55-2.27a2 2 0 0 1 1.79 0z"></path><path d="M15 5.76v15"></path><path d="M9 3.24v15"></path></svg></button></div></div></div><div class="day"><div class="dh"><h2>Miercuri</h2><span>10–16</span></div><div class="it-container"><div class="it curs" data-start="10" data-end="13"><span class="em">📐</span><div><div class="t">10–13</div><div class="n">ALGAED curs<small>AN 030</small></div></div><button type="button" class="map-btn" data-room="AN 030" aria-label="Find on map" title="Find on map"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.1 5.55a2 2 0 0 0 1.79 0l3.66-1.83A1 1 0 0 1 21 4.62v12.76a1 1 0 0 1-.55.9l-4.55 2.27a2 2 0 0 1-1.79 0l-4.21-2.1a2 2 0 0 0-1.79 0l-3.66 1.83A1 1 0 0 1 3 19.38V6.62a1 1 0 0 1 .55-.9l4.55-2.27a2 2 0 0 1 1.79 0z"></path><path d="M15 5.76v15"></path><path d="M9 3.24v15"></path></svg></button></div><div class="br" data-start="13" data-end="14">☕ pauză 1h</div><div class="it curs" data-start="14" data-end="16"><span class="em">🐧</span><div><div class="t">14–16</div><div class="n">ISO curs<small>CantCTI</small></div></div><button type="button" class="map-btn" data-room="CantCTI" aria-label="Find on map" title="Find on map"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.1 5.55a2 2 0 0 0 1.79 0l3.66-1.83A1 1 0 0 1 21 4.62v12.76a1 1 0 0 1-.55.9l-4.55 2.27a2 2 0 0 1-1.79 0l-4.21-2.1a2 2 0 0 0-1.79 0l-3.66 1.83A1 1 0 0 1 3 19.38V6.62a1 1 0 0 1 .55-.9l4.55-2.27a2 2 0 0 1 1.79 0z"></path><path d="M15 5.76v15"></path><path d="M9 3.24v15"></path></svg></button></div></div></div><div class="day"><div class="dh"><h2>Joi</h2><span>8–18</span></div><div class="it-container"><div class="it lab" data-start="8" data-end="10"><span class="em">🐧</span><div><div class="t">8–10</div><div class="n">ISO laborator<small>ED310a (a) · ED310b (b) (Et. 3)</small></div></div><button type="button" class="map-btn" data-room="ED310a (a) · ED310b (b) (Et. 3)" aria-label="Find on map" title="Find on map"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.1 5.55a2 2 0 0 0 1.79 0l3.66-1.83A1 1 0 0 1 21 4.62v12.76a1 1 0 0 1-.55.9l-4.55 2.27a2 2 0 0 1-1.79 0l-4.21-2.1a2 2 0 0 0-1.79 0l-3.66 1.83A1 1 0 0 1 3 19.38V6.62a1 1 0 0 1 .55-.9l4.55-2.27a2 2 0 0 1 1.79 0z"></path><path d="M15 5.76v15"></path><path d="M9 3.24v15"></path></svg></button></div><div class="it opt" data-start="10" data-end="12"><span class="em">🤖</span><div><div class="t">10–12</div><div class="n">IA1 laborator<small>ECS 001</small></div></div><button type="button" class="map-btn" data-room="ECS 001" aria-label="Find on map" title="Find on map"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.1 5.55a2 2 0 0 0 1.79 0l3.66-1.83A1 1 0 0 1 21 4.62v12.76a1 1 0 0 1-.55.9l-4.55 2.27a2 2 0 0 1-1.79 0l-4.21-2.1a2 2 0 0 0-1.79 0l-3.66 1.83A1 1 0 0 1 3 19.38V6.62a1 1 0 0 1 .55-.9l4.55-2.27a2 2 0 0 1 1.79 0z"></path><path d="M15 5.76v15"></path><path d="M9 3.24v15"></path></svg></button></div><div class="it curs" data-start="12" data-end="14"><span class="em">⚙</span><div><div class="t">12–14</div><div class="n">Mecanică curs<small>AN 030</small></div></div><button type="button" class="map-btn" data-room="AN 030" aria-label="Find on map" title="Find on map"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.1 5.55a2 2 0 0 0 1.79 0l3.66-1.83A1 1 0 0 1 21 4.62v12.76a1 1 0 0 1-.55.9l-4.55 2.27a2 2 0 0 1-1.79 0l-4.21-2.1a2 2 0 0 0-1.79 0l-3.66 1.83A1 1 0 0 1 3 19.38V6.62a1 1 0 0 1 .55-.9l4.55-2.27a2 2 0 0 1 1.79 0z"></path><path d="M15 5.76v15"></path><path d="M9 3.24v15"></path></svg></button></div><div class="br" data-start="14" data-end="16">☕ pauză 2h</div><div class="it opt" data-start="16" data-end="18"><span class="em">💡</span><div><div class="t">16–18</div><div class="n">Cultură antreprenorială curs<small>AN 030</small></div></div><button type="button" class="map-btn" data-room="AN 030" aria-label="Find on map" title="Find on map"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.1 5.55a2 2 0 0 0 1.79 0l3.66-1.83A1 1 0 0 1 21 4.62v12.76a1 1 0 0 1-.55.9l-4.55 2.27a2 2 0 0 1-1.79 0l-4.21-2.1a2 2 0 0 0-1.79 0l-3.66 1.83A1 1 0 0 1 3 19.38V6.62a1 1 0 0 1 .55-.9l4.55-2.27a2 2 0 0 1 1.79 0z"></path><path d="M15 5.76v15"></path><path d="M9 3.24v15"></path></svg></button></div></div></div><div class="day"><div class="dh"><h2>Vineri</h2><span>8–14</span></div><div class="it-container"><div class="it curs" data-start="8" data-end="11"><span class="em">➗</span><div><div class="t">8–11</div><div class="n">AMat curs<small>AN 030</small></div></div><button type="button" class="map-btn" data-room="AN 030" aria-label="Find on map" title="Find on map"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.1 5.55a2 2 0 0 0 1.79 0l3.66-1.83A1 1 0 0 1 21 4.62v12.76a1 1 0 0 1-.55.9l-4.55 2.27a2 2 0 0 1-1.79 0l-4.21-2.1a2 2 0 0 0-1.79 0l-3.66 1.83A1 1 0 0 1 3 19.38V6.62a1 1 0 0 1 .55-.9l4.55-2.27a2 2 0 0 1 1.79 0z"></path><path d="M15 5.76v15"></path><path d="M9 3.24v15"></path></svg></button></div><div class="it curs" data-start="11" data-end="14"><span class="em">💻</span><div><div class="t">11–14</div><div class="n">PCLP curs<small>AN 030</small></div></div><button type="button" class="map-btn" data-room="AN 030" aria-label="Find on map" title="Find on map"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.1 5.55a2 2 0 0 0 1.79 0l3.66-1.83A1 1 0 0 1 21 4.62v12.76a1 1 0 0 1-.55.9l-4.55 2.27a2 2 0 0 1-1.79 0l-4.21-2.1a2 2 0 0 0-1.79 0l-3.66 1.83A1 1 0 0 1 3 19.38V6.62a1 1 0 0 1 .55-.9l4.55-2.27a2 2 0 0 1 1.79 0z"></path><path d="M15 5.76v15"></path><path d="M9 3.24v15"></path></svg></button></div></div></div></div></div>
+<div class="map-modal" id="mapModal">
+  <div class="map-sheet">
+    <div class="map-head">
+      <span class="map-title" id="mapTitle"></span>
+      <a class="map-ext" id="mapExt" target="_blank" rel="noopener">Google Maps ↗</a>
+      <button type="button" class="map-close" id="mapClose" aria-label="Închide">✕</button>
+    </div>
+    <div class="map-msg" id="mapMsg"></div>
+    <div class="map-canvas" id="mapCanvas"></div>
+  </div>
+</div>
+
+<ul class="note">
+<li>Săptămâna curentă e calculată de la 28 sept 2026.</li>
+<li>Bară colorată: albastru curs, portocaliu laborator, verde seminar, roz opțional.</li>
+</ul>
+
+<script>
+var C={
+'Luni':[[10,12,'💻','PCLP laborator','ED310a (a) · ED310b (b) (Et. 3)','lab'],[14,16,'📐','ALGAED seminar','EG 303a (Et. 3)','sem']],
+'Marți':[[8,10,'⚙️️','Mecanică laborator','BN033 (a) · BN034 (b)','lab'],[10,12,'➗','AMat seminar','AN 213 (Et. 2)','sem'],[18,20,'🤖','IA1 curs','EC 101 (Et. 1)','opt']],
+'Miercuri':[[10,13,'📐','ALGAED curs','AN 030','curs'],[14,16,'🐧','ISO curs','CantCTI','curs']],
+'Joi':[[12,14,'⚙','Mecanică curs','AN 030','curs']],
+'Vineri':[[8,11,'➗','AMat curs','AN 030','curs'],[11,14,'💻','PCLP curs','AN 030','curs']]
+};
+var W={
+1:{'Luni':[[12,14,'🏃','Educație fizică','Sala de sport','sem']],'Marți':[[14,16,'💡','Cultură antreprenorială seminar','PR 103b (Et. 1)','opt']]},
+2:{'Luni':[[12,14,'🇬🇧','Engleză seminar','PR 103b (Et. 1)','sem']],'Joi':[[8,10,'🐧','ISO laborator','ED310a (a) · ED310b (b) (Et. 3)','lab'],[10,12,'🤖','IA1 laborator','ECS 001','opt'],[16,18,'💡','Cultură antreprenorială curs','AN 030','opt']]}
+};
+var days=['Luni','Marți','Miercuri','Joi','Vineri'];
+var MO=['ian','feb','mar','apr','mai','iun','iul','aug','sept','oct','nov','dec'];
+function fm(d){return d.getDate()+' '+MO[d.getMonth()]}
+
+function info(){
+  try {
+    var n=new Date(),d=new Date(n.getFullYear(),n.getMonth(),n.getDate()),g=d.getDay(),nx=false;
+    if(g==0||g==6){nx=true;d.setDate(d.getDate()+(g==0?1:2))}else d.setDate(d.getDate()-(g-1));
+    var st=new Date(2026,8,28),b0=new Date(2026,11,21),b1=new Date(2027,0,11),en=new Date(2027,0,23);
+    if(d<st)return{s:'pre',wk:1,par:1};
+    if(d>=b0&&d<b1)return{s:'vac',wk:1,par:1};
+    if(d>=en)return{s:'post',wk:1,par:1};
+    var wk=Math.max(1, Math.round((d-st)/604800000)+1);if(d>=b1)wk-=3;
+    var e=new Date(d);e.setDate(e.getDate()+6);
+    return{s:'ok',wk:wk,par:wk%2==0?2:1,nx:nx,r:fm(d)+' – '+fm(e),g:g,n:n.getDay(),d:d};
+  } catch(err) {
+    return {s:'ok',wk:1,par:1,nx:false,n:1};
+  }
+}
+
+var currentWeekSelected = 1;
+
+function draw(w){
+currentWeekSelected = w;
+var I=info(),CUR=I.s=='ok'?I.par:1;
+var today=(I.s=='ok'&&!I.nx&&I.n>=1&&I.n<=5)?days[I.n-1]:'';
+
+var now = new Date();
+var curMin = now.getHours() * 60 + now.getMinutes();
+
+var h='';
+days.forEach(function(d){
+var it=(C[d]||[]).concat(W[w] && W[w][d] ? W[w][d] : []).sort(function(a,b){return a[0]-b[0]});
+var tag=it.length?it[0][0]+'–'+it[it.length-1][1]:'';
+var isToday = (d==today && w==CUR);
+
+h+='<div class="day'+(isToday?' today':'')+'" '+(isToday?'id="today-card"':'')+ '><div class="dh"><h2>'+d+'</h2><span>'+(isToday?'azi · ':'')+tag+'</span></div>';
+h+='<div class="it-container" '+(isToday?'id="today-container"':'')+'>';
+
+if(!it.length){
+  h+='<div class="free">Liber 🎉</div>';
+} else {
+  var p=null;
+  it.forEach(function(i){
+    var startMin = i[0] * 60;
+    var endMin = i[1] * 60;
+    var isLive = isToday && (curMin >= startMin && curMin < endMin);
+
+    if(p!==null&&i[0]>p)h+='<div class="br" data-start="'+p+'" data-end="'+i[0]+'">☕ pauză '+(i[0]-p)+'h</div>';
+    h+='<div class="it '+i[5]+(isLive?' is-live':'')+'" data-start="'+i[0]+'" data-end="'+i[1]+'"><span class="em">'+i[2]+'</span><div><div class="t">'+i[0]+'–'+i[1]+(isLive?'<span class="live-badge">LIVE</span>':'')+'</div><div class="n">'+i[3]+'<small>'+i[4]+'</small></div></div><button type="button" class="map-btn" data-room="'+i[4]+'" aria-label="Find on map" title="Find on map"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.1 5.55a2 2 0 0 0 1.79 0l3.66-1.83A1 1 0 0 1 21 4.62v12.76a1 1 0 0 1-.55.9l-4.55 2.27a2 2 0 0 1-1.79 0l-4.21-2.1a2 2 0 0 0-1.79 0l-3.66 1.83A1 1 0 0 1 3 19.38V6.62a1 1 0 0 1 .55-.9l4.55-2.27a2 2 0 0 1 1.79 0z"/><path d="M15 5.76v15"/><path d="M9 3.24v15"/></svg></button></div>';
+    p=i[1];
+  });
+}
+h+='</div></div>';
+});
+
+document.getElementById('out').innerHTML=h;
+document.getElementById('b1').className=w==1?'on':'';
+document.getElementById('b2').className=w==2?'on':'';
+
+setTimeout(updateArrow, 50);
+}
+
+// Coordonate clădiri
+var ALL_BUILDINGS = {
+  'AN': { pin: [44.438699, 26.050640] },
+  'BN': { pin: [44.4398, 26.0508] },
+  'ED': { pin: [44.4358, 26.0483] },
+  'EC': { pin: [44.435821, 26.047434] },
+  'ECS': { pin: [44.435821, 26.047434] },
+  'EG': { pin: [44.436659, 26.047750] },
+  'PR': { pin: [44.434919, 26.047707] },
+  'CANTCTI': { pin: [44.4368, 26.0477] },
+  'SALA': { pin: [44.439303, 26.054973] }
+};
+
+var DEFAULT_PIN = [44.4385, 26.0514];
+
+var map=null,dest=null,destMarker=null,meMarker=null,meAcc=null,
+    watchId=null,me=null,curHeading=null,hasCentered=false;
+
+function roomKey(room){
+  var m=(room||'').trim().match(/^[A-Za-zĂÂÎȘȚăâîșț]+/);
+  return m?m[0].toUpperCase():'';
+}
+
+function setInfo(t,warn){
+  var m=document.getElementById('mapMsg');
+  if(m){m.textContent=t||'';m.classList.toggle('on',!!t);m.classList.toggle('warn',!!warn);}
+}
+
+function initMap(){
+  if(map)return true;
+  if(typeof L==='undefined'){setInfo('Harta nu s-a încărcat.',true);return false;}
+  
+  map=L.map('mapCanvas',{zoomControl:false,attributionControl:true}).setView(DEFAULT_PIN,16);
+  
+  L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxNativeZoom: 19,
+    maxZoom: 20,
+    detectRetina: true,
+    attribution: '&copy; OpenStreetMap'
+  }).addTo(map);
+
+  L.control.zoom({position:'bottomright'}).addTo(map);
+
+  return true;
+}
+
+var meIcon=null, destIcon=null;
+function icons(){
+  if(!meIcon){
+    meIcon=L.divIcon({className:'',html:'<div class="me"><div class="me-cone"></div><div class="me-dot"></div></div>',iconSize:[32,32],iconAnchor:[16,16]});
+  }
+  if(!destIcon){
+    destIcon=L.divIcon({className:'',html:'<div class="dest-pin-container"><div class="dest-pulse"></div><div class="dest-icon">📍</div></div>',iconSize:[40,40],iconAnchor:[20,20]});
+  }
+}
+
+function setHeading(h){
+  curHeading=h;
+  var el=meMarker&&meMarker.getElement();
+  var c=el&&el.querySelector('.me-cone');
+  if(c){c.style.transform='rotate('+h+'deg)';c.style.opacity=1;}
+}
+
+function onPos(pos){
+  var c=pos.coords,ll=[c.latitude,c.longitude];me=ll;
+  if(!meMarker){
+    meAcc=L.circle(ll,{radius:c.accuracy,stroke:false,fillColor:'#60a5fa',fillOpacity:.2,interactive:false}).addTo(map);
+    meMarker=L.marker(ll,{icon:meIcon,interactive:false,zIndexOffset:1000}).addTo(map);
+    if(curHeading!=null)setTimeout(function(){setHeading(curHeading)},0);
+  }else{
+    meMarker.setLatLng(ll);meAcc.setLatLng(ll);meAcc.setRadius(c.accuracy);
+  }
+
+  if(!hasCentered && map && dest){
+    var bounds = L.latLngBounds([ll, dest]);
+    map.fitBounds(bounds, {padding: [50, 50], maxZoom: 17});
+    hasCentered = true;
+  }
+
+  if(typeof c.heading==='number'&&!isNaN(c.heading)&&c.speed>1)setHeading(c.heading);
+  updateDistInfo();
+}
+
+function updateDistInfo(){
+  if(!me||!dest)return;
+  var dist = map.distance(me, dest);
+  var min = Math.max(1, Math.round(dist / 80));
+  setInfo((dist < 1000 ? Math.round(dist) + ' m' : (dist / 1000).toFixed(1) + ' km') + ' · ~' + min + ' min pe jos');
+}
+
+function onOrient(e){
+  var h=null;
+  if(typeof e.webkitCompassHeading==='number')h=e.webkitCompassHeading;
+  else if(e.alpha!=null&&(e.absolute||e.type==='deviceorientationabsolute'))h=(360-e.alpha)%360;
+  if(h!=null)setHeading(h);
+}
+
+function startCompass(){
+  var DO=window.DeviceOrientationEvent;
+  if(DO&&typeof DO.requestPermission==='function'){
+    DO.requestPermission().then(function(r){
+      if(r==='granted')window.addEventListener('deviceorientation',onOrient,true);
+    }).catch(function(){});
+  }else{
+    window.addEventListener('deviceorientationabsolute',onOrient,true);
+    window.addEventListener('deviceorientation',onOrient,true);
+  }
+}
+
+function stopCompass(){
+  window.removeEventListener('deviceorientationabsolute',onOrient,true);
+  window.removeEventListener('deviceorientation',onOrient,true);
+}
+
+function openMap(room){
+  var key = roomKey(room);
+  var bInfo = ALL_BUILDINGS[key] || { pin: DEFAULT_PIN };
+  dest = bInfo.pin;
+  me = null; 
+  curHeading = null; 
+  hasCentered = false;
+
+  document.getElementById('mapTitle').textContent=room;
+  document.getElementById('mapExt').href='https://www.google.com/maps/dir/?api=1&destination='+dest[0]+','+dest[1]+'&travelmode=walking';
+  
+  var modal = document.getElementById('mapModal');
+  modal.classList.add('on');
+  
+  startCompass();
+  if(!initMap())return;
+  icons();
+
+  map.invalidateSize();
+  setTimeout(function(){
+    if(map) {
+      map.invalidateSize();
+      if(destMarker) destMarker.remove();
+      destMarker = L.marker(dest, {icon: destIcon}).addTo(map);
+      map.setView(dest, 17);
+    }
+  }, 150);
+
+  setInfo('Se caută locația...');
+  if(!navigator.geolocation){setInfo('Locația nu e disponibilă.',true);return;}
+
+  navigator.geolocation.getCurrentPosition(onPos, function(){}, {
+    enableHighAccuracy: false,
+    maximumAge: 600000,
+    timeout: 3000
+  });
+
+  watchId=navigator.geolocation.watchPosition(onPos,function(){
+    setInfo('Nu am putut lua locația.',true);
+  },{
+    enableHighAccuracy: true,
+    maximumAge: 2000,
+    timeout: 5000
+  });
+}
+
+function closeMap(){
+  document.getElementById('mapModal').classList.remove('on');
+  if(watchId!=null){navigator.geolocation.clearWatch(watchId);watchId=null;}
+  stopCompass();
+  if(map){
+    [meMarker,meAcc,destMarker].forEach(function(l){if(l)l.remove()});
+    meMarker=meAcc=destMarker=null;
+  }
+  me=null;setInfo('');
+}
+
+document.addEventListener('click',function(e){
+  var b=e.target.closest&&e.target.closest('.map-btn');
+  if(b){openMap(b.getAttribute('data-room'));return;}
+  if(e.target.id==='mapModal'||e.target.id==='mapClose')closeMap();
+});
+document.addEventListener('keydown',function(e){if(e.key==='Escape')closeMap();});
+
+function scrollToToday(){
+  var todayCard = document.getElementById('today-card');
+  if(todayCard){ todayCard.scrollIntoView({behavior: 'smooth', block: 'start'}); }
+}
+
+function updateArrow(){
+  var oldLine = document.getElementById('time-line');
+  if(oldLine) oldLine.remove();
+
+  var container = document.getElementById('today-container');
+  if(!container) return;
+
+  var now = new Date();
+  var h = now.getHours();
+  var m = now.getMinutes();
+  var curTime = h + m/60;
+
+  var items = container.querySelectorAll('.it, .br');
+  if(!items.length) return;
+
+  var placed = false;
+
+  items.forEach(function(el){
+    if(placed) return;
+    var start = parseFloat(el.getAttribute('data-start'));
+    var end = parseFloat(el.getAttribute('data-end'));
+
+    if(curTime >= start && curTime <= end){
+      var ratio = (curTime - start) / (end - start);
+      var topPos = el.offsetTop + (el.offsetHeight * ratio);
+      createLine(container, topPos, h, m);
+      placed = true;
+    }
+  });
+
+  if(!placed){
+    var firstStart = parseFloat(items[0].getAttribute('data-start'));
+    var lastEnd = parseFloat(items[items.length-1].getAttribute('data-end'));
+
+    if(curTime < firstStart){
+      createLine(container, items[0].offsetTop, h, m);
+    } else if(curTime > lastEnd){
+      var lastEl = items[items.length-1];
+      createLine(container, lastEl.offsetTop + lastEl.offsetHeight, h, m);
+    }
+  }
+}
+
+function createLine(parent, topPx, h, m){
+  var line = document.createElement('div');
+  line.id = 'time-line';
+  line.className = 'time-arrow-line';
+  line.style.top = topPx + 'px';
+  line.setAttribute('data-time', (h < 10 ? '0' + h : h) + ':' + (m < 10 ? '0' + m : m));
+  parent.appendChild(line);
+}
+
+function getCountdownMsg(I){
+  var cdEl = document.getElementById('stickyCountdown');
+  if(cdEl) cdEl.classList.remove('warning');
+
+  if(I.s!=='ok') {
+    if(I.s=='pre') return 'Începe pe 28 sept';
+    if(I.s=='vac') return 'Vacanță de iarnă';
+    return 'Sesiune de examene';
+  }
+  if(I.nx) return 'Urmează s' + (I.wk + 1);
+
+  var today = days[I.n-1];
+  if(!today) return 'Weekend 🎉';
+  
+  var it = (C[today]||[]).concat(W[I.par] && W[I.par][today] ? W[I.par][today] : []).sort(function(a,b){return a[0]-b[0]});
+  if(!it.length) return 'Zi liberă 🎉';
+
+  var now = new Date();
+  var curMin = now.getHours() * 60 + now.getMinutes();
+
+  for(var i=0; i<it.length; i++){
+    var startMin = it[i][0] * 60;
+    var endMin = it[i][1] * 60;
+
+    if(curMin >= startMin && curMin < endMin){
+      var rem = endMin - curMin;
+      return '⏳ Mai ai '+rem+' min din '+it[i][3];
+    }
+    if(curMin < startMin){
+      var diff = startMin - curMin;
+      var h = Math.floor(diff/60);
+      var m = diff % 60;
+      var timeStr = h > 0 ? h + 'h ' + m + 'm' : m + ' min';
+
+      if(diff <= 10 && cdEl){ cdEl.classList.add('warning'); }
+
+      return 'Urmează '+it[i][3]+' în '+timeStr;
+    }
+  }
+  return '✅ Ore terminate pe azi';
+}
+
+function updateView(){
+  var I = info();
+  
+  if(I.s=='ok'){
+    var wkEl = document.getElementById('stickyWeekText');
+    if(wkEl) wkEl.textContent = 'Săptămâna ' + I.wk;
+  } else {
+    var wkEl = document.getElementById('stickyWeekText');
+    if(wkEl) wkEl.textContent = 'Orar 312AA';
+  }
+
+  var cdEl = document.getElementById('stickyCountdown');
+  if(cdEl) cdEl.textContent = getCountdownMsg(I);
+
+  draw(I.s=='ok' ? I.par : 1);
+}
+
+document.getElementById('b1').onclick=function(){draw(1)};
+document.getElementById('b2').onclick=function(){draw(2)};
+
+var I=info(),CUR=I.s=='ok'?I.par:1;
+currentWeekSelected = CUR;
+updateView();
+setTimeout(scrollToToday, 300);
+setInterval(updateView, 60000);
+
+let deferredPrompt;
+const pwaBanner = document.getElementById('pwaBanner');
+const pwaText = document.getElementById('pwaText');
+const pwaBtn = document.getElementById('pwaBtn');
+
+const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+const isStandalone = window.navigator.standalone || window.matchMedia('(display-mode: standalone)').matches;
+
+if (isIOS && !isStandalone) {
+  if(pwaBanner) pwaBanner.style.display = 'flex';
+  if(pwaText) pwaText.innerHTML = '📲 <b>iPhone:</b> Share (📤) ➔ Add to Home Screen';
+  if(pwaBtn) pwaBtn.style.display = 'none';
+} else {
+  window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    deferredPrompt = e;
+    if(pwaBanner) pwaBanner.style.display = 'flex';
+  });
+
+  if(pwaBtn) {
+    pwaBtn.addEventListener('click', async () => {
+      if (deferredPrompt) {
+        deferredPrompt.prompt();
+        deferredPrompt = null;
+        if(pwaBanner) pwaBanner.style.display = 'none';
+      }
+    });
+  }
+}
+
+if ('serviceWorker' in navigator) { navigator.serviceWorker.register('sw.js').catch(function(){}); }
+</script></body></html>
